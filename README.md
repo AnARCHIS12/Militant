@@ -1,13 +1,7 @@
 # MILITANT
 
 <div align="center">
-  <img src="assets/logo.svg" alt="Militant" width="200"/>
-  <br/><br/>
-  <img src="assets/badges/anarchist.svg" alt="Anarchist" height="30"/>
-  <img src="assets/badges/antifa.svg" alt="Antifa" height="30"/>
-  <img src="assets/badges/militant.svg" alt="Militant" height="30"/>
-  <br/><br/>
-</div>
+  <img src="https://github.com/AnARCHIS12/Militant/blob/main/logo.svg" alt="Militant" width="200"/>
 
 Réseau social militant autogéré - v2.2
 
