@@ -1,13 +1,28 @@
-# MILITANT
+<p align="center">
+  <img src="assets/favicon.svg" width="120" alt="MILITANT Logo">
+</p>
 
-<div align="center">
-  <img src="https://github.com/AnARCHIS12/Militant/blob/main/logo.svg" alt="Militant" width="200"/>
+<h1 align="center">MILITANT</h1>
 
-Réseau social militant autogéré - v2.2
+<p align="center">
+  <img src="https://img.shields.io/badge/Version-2.4-red?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/PHP-8.2-777bb1?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
+  <img src="https://img.shields.io/badge/ActivityPub-Supported-orange?style=for-the-badge&logo=activitypub&logoColor=white" alt="ActivityPub">
+  <img src="https://img.shields.io/badge/Docker-Ready-2496ed?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License">
+</p>
+
+<p align="center">
+  <strong>Réseau social militant autogéré, décentralisé et sécurisé.</strong>
+</p>
+
+---
+
 
 ## Architecture Technique
 
 MILITANT est conçu pour être léger, rapide et ultra-sécurisé.
+
 - Backend : PHP 8.2 (Vanilla)
 - Frontend : Vanilla HTML/JS, Bootstrap 5.3
 - Base de données : MySQL 8.0 / MariaDB
@@ -27,42 +42,44 @@ MILITANT utilise GitLab CI pour builder et publier automatiquement les images Do
 
 ```bash
 # Utiliser le script automatique
-bash release.sh 2.2.
+bash release.sh 2.4.
 
 # Publier sur GitLab
 git push origin main
-git push origin v2.2
+git push origin v2.4
 ```
 
 Le script `release.sh` fait automatiquement :
+
 - Met à jour `config/version.php`
 - Crée un commit de release
-- Crée un tag Git `v2.2`
+- Crée un tag Git `v2.4`
 
 #### Ce qui se passe sur GitLab
 
-Quand vous poussez un tag (ex: `v2.2`), GitLab CI automatiquement :
+Quand vous poussez un tag (ex: `v2.4`), GitLab CI automatiquement :
+
 1. Build l'image Docker
 2. La publie avec les tags :
-   - `registry.gitlab.com/militant1/millitant:2.3.0`
-   - `registry.gitlab.com/militant1/millitant:latest`
+  - `registry.gitlab.com/militant1/millitant:2.4.0`
+  - `registry.gitlab.com/militant1/millitant:latest`
 
 #### Vérifier les versions disponibles
 
 Sur GitLab : **Packages & Registries** → **Container Registry**
 
-Vous verrez toutes les versions : `latest`, `2.2.0`, `2.3.0`, etc.
+Vous verrez toutes les versions : `latest`, `2.2.0`, `2.4.0`, etc.
 
 #### Build manuel (si nécessaire)
 
 ```bash
 # Build local
-docker build -t militant:2.3.0 .
+docker build -t militant:2.4.0 .
 
 # Tag et push vers GitLab
-docker tag militant:2.2. registry.gitlab.com/militant1/millitant:2.2
-docker tag militant:2.2 registry.gitlab.com/militant1/millitant:latest
-docker push registry.gitlab.com/militant1/millitant:2.2
+docker tag militant:2.4. registry.gitlab.com/militant1/millitant:2.4
+docker tag militant:2.4 registry.gitlab.com/militant1/millitant:latest
+docker push registry.gitlab.com/militant1/millitant:2.4
 docker push registry.gitlab.com/militant1/millitant:latest
 ```
 
@@ -71,17 +88,20 @@ docker push registry.gitlab.com/militant1/millitant:latest
 MILITANT supporte les mises à jour à chaud via GitLab :
 
 **Via l'interface Admin :**
+
 1. Admin → Mises à jour
 2. Vérifier les mises à jour
 3. Cliquer sur "Mettre à jour"
 4. Recharger après 10 secondes
 
 **Via script :**
+
 ```bash
 bash hot_update.sh
 ```
 
 **Avantages :**
+
 - Zéro downtime
 - Pas de redémarrage
 - Mise à jour en 10 secondes
@@ -99,21 +119,24 @@ cd millitant
 docker compose up -d --build
 ```
 
-- Site web : http://localhost:9000
-- Emails (Mailpit) : http://localhost:8025
-- Admin : http://localhost:9000/setup_admin.php
+- Site web : [http://localhost:9000](http://localhost:9000)
+- Emails (Mailpit) : [http://localhost:8025](http://localhost:8025)
+- Admin : [http://localhost:9000/setup_admin.php](http://localhost:9000/setup_admin.php)
 
 ### Production (Serveur)
 
 Pour déployer sur un serveur en ligne (VPS, dédié...) :
 
 1. Télécharger le fichier de production :
+
 ```bash
 curl -O https://gitlab.com/anarchymedialibertaire-group/millitant/-/raw/main/docker-compose.prod.yml
 ```
 
-2. Configurer l'environnement :
+1. Configurer l'environnement :
+
 Créez un fichier .env à côté :
+
 ```env
 DB_PASS=votre_mot_de_passe_sql
 SMTP_HOST=smtp.votre-fournisseur.com
@@ -122,7 +145,8 @@ SMTP_PASS=votre_mot_de_passe_smtp
 APP_URL=https://votre-domaine.com
 ```
 
-3. Lancer :
+1. Lancer :
+
 ```bash
 docker compose -f docker-compose.prod.yml up -d
 ```
@@ -132,18 +156,21 @@ docker compose -f docker-compose.prod.yml up -d
 Cette méthode utilise l'image pré-construite et est la plus simple à maintenir.
 
 1. Télécharger les fichiers nécessaires :
+
 ```bash
 curl -O https://gitlab.com/militant1/millitant/-/raw/main/docker-compose.hosting.yml
 curl -O https://gitlab.com/militant1/millitant/-/raw/main/.env.template
 ```
 
-2. Configuration :
+1. Configuration :
+
 ```bash
 cp .env.template .env
 nano .env # Remplissez vos tokens et mots de passe
 ```
 
-3. Lancement :
+1. Lancement :
+
 ```bash
 docker compose -f docker-compose.hosting.yml up -d
 ```
@@ -153,11 +180,13 @@ docker compose -f docker-compose.hosting.yml up -d
 Si vous ne voulez pas builder l'image vous-même, vous pouvez utiliser l'image officielle générée automatiquement par notre GitLab :
 
 1. Se connecter au registre GitLab (nécessaire une seule fois) :
+
 ```bash
 docker login registry.gitlab.com
 ```
 
-2. Utiliser l'image dans votre docker-compose.yml :
+1. Utiliser l'image dans votre docker-compose.yml :
+
 ```yaml
 services:
   app:
@@ -171,14 +200,16 @@ services:
 2. Cliquez sur l'icône Docker Compose (en haut à droite de la modale).
 3. Collez le contenu du fichier docker-compose.casaos.yml.
 4. Cliquez sur Install.
-5. Accédez à http://IP-CASAOS:8080
-6. Créer le compte admin : Allez sur http://IP-CASAOS:8080/setup_admin.php
+5. Accédez à [http://IP-CASAOS:8080](http://IP-CASAOS:8080)
+6. Créer le compte admin : Allez sur [http://IP-CASAOS:8080/setup_admin.php](http://IP-CASAOS:8080/setup_admin.php)
 
 Configuration requise :
+
 - ~512 Mo RAM minimum
 - ~5 Go disque (selon uploads)
 
 Fonctionnalités incluses :
+
 - Fail2Ban intégré (protection anti-bruteforce)
 - Auto-migration de la base de données
 - Volumes persistants pour uploads et logs
@@ -189,16 +220,19 @@ Fonctionnalités incluses :
 MILITANT est optimisé pour tourner derrière un reverse proxy (Cloudflare, Pangolin, Nginx, Traefik...).
 
 ### Real IP (Apache mod_remoteip)
+
 Le système est configuré pour extraire l'IP réelle de vos visiteurs. Cela permet à Fail2Ban de bannir les attaquants et non vos serveurs internes.
 
 Configuration par défaut : X-Forwarded-For (compatible avec Pangolin, Nginx, Traefik)
 
 Pour Cloudflare : Modifier fail2ban/remoteip.conf :
+
 ```apache
 RemoteIPHeader CF-Connecting-IP
 ```
 
 Pour Pangolin/Nginx/Traefik (par défaut) :
+
 ```apache
 RemoteIPHeader X-Forwarded-For
 ```
@@ -206,6 +240,7 @@ RemoteIPHeader X-Forwarded-For
 ### Appliquer la configuration RemoteIP (sans redémarrer)
 
 Étape 1 : Créer le fichier de configuration
+
 ```bash
 docker exec <nom_conteneur> bash -c 'echo "RemoteIPHeader X-Forwarded-For
 RemoteIPTrustedProxy 10.0.0.0/8
@@ -214,11 +249,13 @@ RemoteIPTrustedProxy 192.168.0.0/16" > /etc/apache2/conf-available/remoteip.conf
 ```
 
 Étape 2 : Activer le module et la configuration
+
 ```bash
 docker exec <nom_conteneur> bash -c 'a2enmod remoteip && a2enconf remoteip && apache2ctl graceful'
 ```
 
 Commande complète (tout en une fois) :
+
 ```bash
 docker exec <nom_conteneur> bash -c 'echo "RemoteIPHeader X-Forwarded-For
 RemoteIPTrustedProxy 10.0.0.0/8
@@ -227,6 +264,7 @@ RemoteIPTrustedProxy 192.168.0.0/16" > /etc/apache2/conf-available/remoteip.conf
 ```
 
 Vérifier que ça fonctionne :
+
 ```bash
 # Vérifier que le module est chargé
 docker exec <nom_conteneur> apache2ctl -M | grep remoteip
@@ -239,7 +277,8 @@ docker exec <nom_conteneur> bash -c 'echo "<?php echo \"IP: \" . \$_SERVER[\"REM
 ```
 
 Important : 
-- Remplacez <nom_conteneur> par le nom de votre conteneur (ex: militant-app-militant-app-1)
+
+- Remplacez  par le nom de votre conteneur (ex: militant-app-militant-app-1)
 - Trouvez le nom avec : docker ps | grep militant
 - Cette modification est temporaire. Pour la rendre permanente, utilisez le Dockerfile ou sauvegardez avec docker commit
 
@@ -247,7 +286,11 @@ Proxies de confiance : Les réseaux Docker internes (10.0.0.0/8, 172.16.0.0/12, 
 
 ## Protection Fail2Ban
 
-Fail2Ban est activé par défaut sur CasaOS pour protéger contre les attaques par force brute.
+**Si vous utilisez l'installation Docker Standard (`docker-compose.prod.yml` ou `hosting.yml`) :**
+Fail2Ban est déjà **pré-intégré, configuré et fonctionnel par défaut** à l'intérieur du conteneur. Vous n'avez aucune manipulation à faire : il protège les connexions, inscriptions et captchas dès la première minute.
+
+**Si vous utilisez CasaOS (ou un système bloquant les permissions réseaux internes) :**
+Il est impossible de faire tourner Fail2Ban dans le conteneur principal. Il faut donc le faire tourner dans un conteneur externe dédié (`crazymax/fail2ban`).
 
 Voir aussi DEPLOY.md pour les instructions de déploiement et mise à jour.
 
@@ -268,41 +311,28 @@ docker exec militant-fail2ban fail2ban-client status militant-auth
 
 Si docker ps | grep fail2ban ne retourne rien, il faut l'ajouter au docker-compose :
 
-1. Créer les fichiers de configuration :
+1. Créer les fichiers de configuration (téléchargement de la config complète officielle) :
+
 ```bash
 sudo mkdir -p /DATA/AppData/militant/fail2ban/filter.d
 
-# Créer jail.local
-sudo tee /DATA/AppData/militant/fail2ban/jail.local << 'EOF'
-[DEFAULT]
-bantime = 3600
-findtime = 600
-maxretry = 5
-ignoreip = 127.0.0.1/8
+# Télécharger la dernière version de jail.local (inclut auth, register et captcha)
+sudo curl -L https://gitlab.com/militant1/millitant/-/raw/main/fail2ban/jail.local -o /DATA/AppData/militant/fail2ban/jail.local
 
-[militant-auth]
-enabled = true
-filter = militant-auth
-logpath = /var/log/militant/security.log
-maxretry = 5
-bantime = 3600
-findtime = 300
-EOF
-
-# Créer le filtre
-sudo tee /DATA/AppData/militant/fail2ban/filter.d/militant-auth.conf << 'EOF'
-[Definition]
-failregex = ^\[.*\] FAILED_LOGIN .* IP:<HOST>
-ignoreregex =
-EOF
+# Télécharger tous les filtres de sécurité
+sudo curl -L https://gitlab.com/militant1/millitant/-/raw/main/fail2ban/filter.d/militant-auth.conf -o /DATA/AppData/militant/fail2ban/filter.d/militant-auth.conf
+sudo curl -L https://gitlab.com/militant1/millitant/-/raw/main/fail2ban/filter.d/militant-register.conf -o /DATA/AppData/militant/fail2ban/filter.d/militant-register.conf
+sudo curl -L https://gitlab.com/militant1/millitant/-/raw/main/fail2ban/filter.d/militant-captcha.conf -o /DATA/AppData/militant/fail2ban/filter.d/militant-captcha.conf
 ```
 
-2. Ajouter le service au docker-compose :
+1. Ajouter le service au docker-compose :
+
 ```bash
 sudo nano /var/lib/casaos/apps/militant/docker-compose.yml
 ```
 
 Ajouter ce bloc dans la section services: :
+
 ```yaml
   fail2ban:
     container_name: militant-fail2ban
@@ -318,18 +348,21 @@ Ajouter ce bloc dans la section services: :
     restart: unless-stopped
 ```
 
-3. Démarrer Fail2Ban :
+1. Démarrer Fail2Ban :
+
 ```bash
 cd /var/lib/casaos/apps/militant && sudo docker compose up -d fail2ban
 ```
 
 ### Configuration par défaut
 
-| Paramètre | Valeur |
-|-----------|--------|
-| Tentatives max | 5 |
-| Durée du ban | 1 heure |
+
+| Paramètre            | Valeur    |
+| -------------------- | --------- |
+| Tentatives max       | 5         |
+| Durée du ban         | 1 heure   |
 | Fenêtre de détection | 5 minutes |
+
 
 ### Débannir une IP
 
@@ -340,6 +373,7 @@ docker exec militant-fail2ban fail2ban-client set militant-auth unbanip 192.168.
 ### Logs de sécurité
 
 Les tentatives suspectes sont enregistrées dans :
+
 ```
 /DATA/AppData/militant/logs/security.log
 ```
@@ -351,6 +385,7 @@ Consultables aussi depuis l'interface admin : /update.php?tab=logs
 ### Configuration du backup automatique
 
 1. Créer le script de backup :
+
 ```bash
 sudo tee /usr/local/bin/militant-backup.sh << 'EOF'
 #!/bin/bash
@@ -368,12 +403,14 @@ EOF
 sudo chmod +x /usr/local/bin/militant-backup.sh
 ```
 
-2. Configurer le cron (backup hebdomadaire le dimanche à 3h) :
+1. Configurer le cron (backup hebdomadaire le dimanche à 3h) :
+
 ```bash
 (crontab -l 2>/dev/null; echo "0 3 * * 0 /usr/local/bin/militant-backup.sh >> /var/log/militant-backup.log 2>&1") | crontab -
 ```
 
-3. Vérifier la configuration :
+1. Vérifier la configuration :
+
 ```bash
 crontab -l
 ```
@@ -398,12 +435,14 @@ cd /var/lib/casaos/apps/militant && sudo docker compose pull && sudo docker comp
 ## Fonctionnalités
 
 ### Sécurité & Compte
+
 - Authentification double facteur (2FA) via TOTP (Google Authenticator, Authy...)
 - Passkeys (WebAuthn) : Connexion biométrique (empreinte, visage)
 - Mots de passe hachés avec Argon2ID
 - Protection CSRF, XSS, et Rate Limiting stricts
 
 ### Publications
+
 - Posts avec photos/vidéos (jusqu'à 500MB)
 - Rich Link Previews (aperçus automatiques des liens)
 - Réactions emoji
@@ -411,6 +450,7 @@ cd /var/lib/casaos/apps/militant && sudo docker compose pull && sudo docker comp
 - @mentions avec notifications
 
 ### Social
+
 - Groupes de messagerie style Messenger avec partage média (images, vidéos, audio)
 - Messages vocaux en direct avec enregistrement
 - Messages éphémères avec auto-suppression configurable (1 min à 7 jours)
@@ -421,7 +461,16 @@ cd /var/lib/casaos/apps/militant && sudo docker compose pull && sudo docker comp
 - Système d'amis et followers
 - Recherche globale unifiée
 
+### Fediverse & Décentralisation (Multi-instances)
+
+- **Fédération ActivityPub** : Interconnexion native avec Mastodon, PeerTube, Misskey, etc.
+- **Identité WebFinger** : Découverte via adresse `@utilisateur@votre-domaine.com`
+- **Followers distants** : Gestion asymétrique des abonnements entrants
+- **Push en live** : Diffusion automatique et sécurisée en temps réel des publications vers les serveurs de vos abonnés
+- **Signatures asymétriques** : Chiffrement HTTP RSA-SHA256 bidirectionnel pour lutter contre l'usurpation
+
 ### Groupes & Collectifs
+
 - Gouvernance horizontale : Tous les membres sont admins (gestion horizontale)
 - Groupes de messagerie : Conversations de groupe avec demandes d'adhésion
 - Groupes privés : Questionnaire d'entrée, validation par admins
@@ -432,6 +481,7 @@ cd /var/lib/casaos/apps/militant && sudo docker compose pull && sudo docker comp
 - Événements publics et privés
 
 ### API REST Complète
+
 - 27 catégories d'endpoints
 - Authentification Bearer token (30 jours)
 - Rate limiting par endpoint
@@ -441,7 +491,7 @@ cd /var/lib/casaos/apps/militant && sudo docker compose pull && sudo docker comp
 - Headers de sécurité (HSTS, CSP, X-Frame-Options)
 - Logging de sécurité complet
 - **Déploiement séparé requis** : L'API doit être installée sur son propre conteneur
-- Dépôt séparé : https://gitlab.com/militant1/militant-api
+- Dépôt séparé : [https://gitlab.com/militant1/militant-api](https://gitlab.com/militant1/militant-api)
 - Wiki complet : /api/WIKI.md
 - Documentation : /api/README.md
 - Sécurité : /api/SECURITY.md
@@ -451,32 +501,39 @@ cd /var/lib/casaos/apps/militant && sudo docker compose pull && sudo docker comp
 L'environnement local (docker-compose.yml) inclut :
 
 ### Emails (Mailpit)
+
 En dev, les emails sont interceptés par Mailpit pour éviter le spam.
-Accédez à l'interface : http://localhost:8025
+Accédez à l'interface : [http://localhost:8025](http://localhost:8025)
 
 ### Base de données & Migrations
+
 Le système gère automatiquement le schéma :
+
 - Installation fraîche : Utilise database/schema_full.sql.
 - Mise à jour : Utilise cli-migrate.php au démarrage.
 
 ### Testeur SMTP
+
 Pour diagnostiquer les problèmes d'envoi d'emails (ex: OVH, Gmail) :
-- Accédez à : http://votre-url/mail-test.php (réservé aux admins).
+
+- Accédez à : [http://votre-url/mail-test.php](http://votre-url/mail-test.php) (réservé aux admins).
 - Cet outil affiche le log détaillé de la session SMTP pour identifier précisément où le blocage se situe (connexion, TLS ou authentification).
 
 ## Configuration Complète (.env)
 
-| Variable | Description | Défaut (Dev) |
-|----------|-------------|--------------|
-| DB_HOST | Hôte MySQL | db |
-| DB_NAME | Nom de la base | militant |
-| DB_USER | Utilisateur MySQL | militant |
-| DB_PASS | Mot de passe MySQL | militant123 |
-| SMTP_HOST | Serveur SMTP | mailpit |
-| SMTP_PORT | Port SMTP | 1025 |
-| APP_URL | URL publique | http://localhost:9000 |
-| HCAPTCHA_SITE_KEY | Clé site hCaptcha | - |
-| HCAPTCHA_SECRET_KEY | Clé secrète hCaptcha | - |
+
+| Variable            | Description          | Défaut (Dev)                                   |
+| ------------------- | -------------------- | ---------------------------------------------- |
+| DB_HOST             | Hôte MySQL           | db                                             |
+| DB_NAME             | Nom de la base       | militant                                       |
+| DB_USER             | Utilisateur MySQL    | militant                                       |
+| DB_PASS             | Mot de passe MySQL   | militant123                                    |
+| SMTP_HOST           | Serveur SMTP         | mailpit                                        |
+| SMTP_PORT           | Port SMTP            | 1025                                           |
+| APP_URL             | URL publique         | [http://localhost:9000](http://localhost:9000) |
+| HCAPTCHA_SITE_KEY   | Clé site hCaptcha    | -                                              |
+| HCAPTCHA_SECRET_KEY | Clé secrète hCaptcha | -                                              |
+
 
 ## Mise à jour
 
@@ -485,6 +542,7 @@ Pour diagnostiquer les problèmes d'envoi d'emails (ex: OVH, Gmail) :
 MILITANT supporte les mises à jour à chaud via GitLab sans aucun redémarrage.
 
 **Méthode 1 : Via l'interface Admin**
+
 1. Connectez-vous en tant qu'admin
 2. Allez dans **Admin** → **Mises à jour**
 3. Cliquez sur **"Vérifier les mises à jour"**
@@ -492,11 +550,13 @@ MILITANT supporte les mises à jour à chaud via GitLab sans aucun redémarrage.
 5. Rechargez la page après 10 secondes
 
 **Méthode 2 : Via script**
+
 ```bash
 bash hot_update.sh
 ```
 
 **Avantages :**
+
 - Zéro downtime (aucune interruption)
 - Pas de redémarrage du conteneur
 - Mise à jour en 10 secondes
@@ -504,6 +564,7 @@ bash hot_update.sh
 - WebSocket non interrompu
 
 **Comment ça marche :**
+
 1. Récupère les dernières modifications depuis GitLab
 2. Copie les fichiers dans le conteneur en cours
 3. Exécute les migrations de base de données
@@ -519,6 +580,7 @@ GITLAB_TOKEN=votre_token_gitlab
 ```
 
 **Obtenir un token GitLab :**
+
 1. GitLab.com → Settings → Access Tokens
 2. Créer un token avec le scope `read_repository`
 3. Ajouter dans `.env` : `GITLAB_TOKEN=glpat-xxxxx`
@@ -539,11 +601,13 @@ docker compose up -d
 Si vous avez besoin d'intervenir manuellement à l'intérieur du conteneur.
 
 ### Accéder au terminal du conteneur
+
 ```bash
 docker exec -it militant-app bash
 ```
 
 ### Exécuter les migrations manuellement
+
 ```bash
 docker exec -it militant-app php /var/www/html/cli-migrate.php
 ```
@@ -553,6 +617,7 @@ Note : Privilégiez toujours ./hot_update.sh pour les mises à jour régulières
 ## Maintenance & FAQ
 
 ### Voir les logs en direct
+
 ```bash
 # Logs Apache (Accès et erreurs)
 docker logs -f militant-app
@@ -562,12 +627,15 @@ tail -f ./logs/security.log
 ```
 
 ### Réparer les permissions
+
 Si vous avez des erreurs d'upload :
+
 ```bash
 sudo ./hot_update.sh
 ```
 
 ### Pourquoi mon IP est 192.168.x.x ?
+
 Si vous voyez des IP internes dans vos paramètres, déconnectez-vous et reconnectez-vous. Le système enregistre l'IP au moment du login. Toute nouvelle connexion après la mise à jour affichera votre IP publique.
 
 ## Modération communautaire
@@ -595,25 +663,29 @@ Application installable sur mobile et desktop. Fonctionne hors ligne.
 Une application mobile native est disponible pour Android et iOS.
 
 ### Fonctionnalités Mobiles
+
 - **Support Multi-Serveurs** : L'utilisateur peut se connecter à n'importe quelle instance auto-hébergée simplement en entrant l'URL.
 - **Notifications Push Dynamiques** : Support natif de OneSignal. L'application récupère automatiquement la configuration du serveur (App ID) au démarrage.
 - **Trilingue** : Français, Anglais, Espagnol.
 - **Confidentialité** : Respect total des paramètres de compte privé et permissions de messages.
 
 ### Installation
-1.  Téléchargez l'APK ou installez via F-Droid (bientôt).
-2.  Entrez l'URL de votre instance (ex: `https://militant.revlibertaire.com`).
-3.  Connectez-vous avec vos identifiants habituels.
+
+1. Téléchargez l'APK ou installez via F-Droid (bientôt).
+2. Entrez l'URL de votre instance (ex: `https://militant.revlibertaire.com`).
+3. Connectez-vous avec vos identifiants habituels.
 
 ## Page de Status (jointomilitant)
 
 Une page de status publique est disponible pour surveiller l'état des services MILITANT en temps réel.
 
 ### Accès
-- **Local (Docker)** : http://localhost:9001
+
+- **Local (Docker)** : [http://localhost:9001](http://localhost:9001)
 - **Production** : Déployez sur votre domaine (ex: status.militant.com)
 
 ### Fonctionnalités
+
 - Surveillance en temps réel des services (Web + API)
 - Historique des incidents sur 7 jours
 - Barres d'uptime visuelles (40 derniers jours)
@@ -627,19 +699,22 @@ cd jointomilitant
 docker-compose up -d
 ```
 
-Le site sera accessible sur http://localhost:9001
+Le site sera accessible sur [http://localhost:9001](http://localhost:9001)
 
 ### Configuration Admin
 
 **Mot de passe par défaut** : `StatusAdmin2024`
 
 **Changer le mot de passe** :
+
 1. Créer un fichier `.env` dans `jointomilitant/` :
+
 ```env
 STATUS_ADMIN_PASSWORD=VotreNouveauMotDePasse
 ```
 
-2. Rebuild le container :
+1. Rebuild le container :
+
 ```bash
 cd jointomilitant
 docker-compose down
@@ -648,7 +723,7 @@ docker-compose up -d --build
 
 ### Accès Admin
 
-- **URL** : http://localhost:9001/status-admin.php
+- **URL** : [http://localhost:9001/status-admin.php](http://localhost:9001/status-admin.php)
 - **Fonctionnalités** :
   - Ajouter des incidents
   - Supprimer des incidents
@@ -658,10 +733,12 @@ docker-compose up -d --build
 ### Endpoints Health Check
 
 Le système vérifie automatiquement :
-- **Web Platform** : https://militant.revlibertaire.com/health-public.php
-- **API v1** : https://api.militant.revlibertaire.com/health-public.php
+
+- **Web Platform** : [https://militant.revlibertaire.com/health-public.php](https://militant.revlibertaire.com/health-public.php)
+- **API v1** : [https://api.militant.revlibertaire.com/health-public.php](https://api.militant.revlibertaire.com/health-public.php)
 
 **Format de réponse** :
+
 ```json
 {
   "status": "ok",
@@ -670,6 +747,7 @@ Le système vérifie automatiquement :
 ```
 
 **Statuts possibles** :
+
 - `ok` : Service opérationnel
 - `degraded` : Service dégradé
 - `partial_outage` : Panne partielle
@@ -677,6 +755,7 @@ Le système vérifie automatiquement :
 ### Personnalisation
 
 Modifier les URLs des services dans les fichiers `status.html` (4 langues) :
+
 ```javascript
 const services = [
     { id: 'web', name: 'Plateforme Web', url: 'https://votre-domaine.com/health-public.php' },
@@ -686,8 +765,8 @@ const services = [
 
 ## Liens
 
-- GitLab Militant : https://gitlab.com/militant1/millitant
-- GitLab API : https://gitlab.com/militant1/militant-api
+- GitLab Militant : [https://gitlab.com/militant1/millitant](https://gitlab.com/militant1/millitant)
+- GitLab API : [https://gitlab.com/militant1/militant-api](https://gitlab.com/militant1/militant-api)
 - Wiki API : /api/WIKI.md
 - Documentation API : /api/README.md
 - Sécurité API : /api/SECURITY.md
@@ -701,7 +780,7 @@ const services = [
 
 L'API est dans `/api/` et **doit être déployée séparément** sur son propre conteneur.
 
-**Dépôt séparé :** https://gitlab.com/militant1/militant-api
+**Dépôt séparé :** [https://gitlab.com/militant1/militant-api](https://gitlab.com/militant1/militant-api)
 
 **Configuration requise :** Créer `/api/.env` avec les credentials de votre instance Militant
 
@@ -713,6 +792,7 @@ API_DB_PASS=votre_mot_de_passe
 ```
 
 **Sécurité :**
+
 - Protection anti brute-force (10 tentatives/15min)
 - Rate limiting (60 req/min par IP)
 - Protection SQL injection, XSS, path traversal
@@ -744,10 +824,12 @@ nano .env  # Configurer : API_DB_HOST, API_DB_USER, API_DB_PASS
 docker-compose up -d
 ```
 
-L'API sera accessible sur http://localhost:8081
+L'API sera accessible sur [http://localhost:8081](http://localhost:8081)
 
 **CasaOS** : Voir /api/CASAOS.md pour l'installation sur CasaOS
 
 Voir : /api/DOCKER.md pour toutes les options.
 
-**Documentation complète :** /api/README.md 
+**Documentation complète :** /api/README.md | /api/SECURITY.md | /api/WIKI.md
+
+Organise-toi. Mobilise-toi.
