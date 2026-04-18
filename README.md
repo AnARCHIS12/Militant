@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/favicon.svg" width="120" alt="MILITANT Logo">
+  <img src="https://github.com/AnARCHIS12/Militant/blob/main/logo.svg" width="120" alt="MILITANT Logo">
 </p>
 
 <h1 align="center">MILITANT</h1>
